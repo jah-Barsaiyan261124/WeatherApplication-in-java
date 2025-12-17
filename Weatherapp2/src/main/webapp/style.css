@@ -1,0 +1,194 @@
+/* =========================
+   BASE LAYOUT
+   ========================= */
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* =========================
+   WEATHER BACKGROUNDS
+   ========================= */
+.default {
+    background: linear-gradient(to right, #74ebd5, #9face6);
+}
+
+.sunny {
+    background: linear-gradient(to right, #fceabb, #f8b500);
+}
+
+.cloudy {
+    background: linear-gradient(to right, #8ec5fc, #e0c3fc);
+}
+
+.rainy {
+    background: linear-gradient(to right, #4b79a1, #283e51);
+}
+
+.snow {
+    background: linear-gradient(to right, #e6dada, #274046);
+}
+
+.night {
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+}
+
+/* =========================
+   WEATHER CARD
+   ========================= */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    z-index: 5;
+}
+
+.weather-box p {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+a {
+    text-decoration: none;
+    color: #3f51b5;
+    font-weight: bold;
+}
+
+/* =========================
+   ☀️ SUN GLOW
+   ========================= */
+.sunny::before {
+    content: "";
+    position: fixed;
+    top: -120px;
+    right: -120px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255,200,0,0.9), rgba(255,200,0,0.2), transparent);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* =========================
+   ☁️ CLOUDS CONTAINER
+   ========================= */
+.clouds {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 50px;
+    animation: moveClouds linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 60%;
+    height: 60%;
+    top: -30%;
+    left: 20%;
+}
+
+.cloud::after {
+    width: 50%;
+    height: 50%;
+    top: -20%;
+    left: -20%;
+}
+
+/* 15 CLOUDS – FULL SCREEN */
+.cloud1  { width:160px; height:55px; top:5%;  left:5%;  animation-duration:30s; }
+.cloud2  { width:200px; height:65px; top:10%; left:25%; animation-duration:34s; }
+.cloud3  { width:140px; height:50px; top:18%; left:50%; animation-duration:28s; }
+.cloud4  { width:180px; height:60px; top:26%; left:75%; animation-duration:36s; }
+.cloud5  { width:220px; height:70px; top:35%; left:10%; animation-duration:40s; }
+.cloud6  { width:150px; height:50px; top:42%; left:35%; animation-duration:26s; }
+.cloud7  { width:190px; height:60px; top:50%; left:60%; animation-duration:38s; }
+.cloud8  { width:130px; height:45px; top:58%; left:80%; animation-duration:24s; }
+.cloud9  { width:210px; height:70px; top:65%; left:15%; animation-duration:42s; }
+.cloud10 { width:160px; height:55px; top:72%; left:40%; animation-duration:30s; }
+.cloud11 { width:200px; height:65px; top:80%; left:65%; animation-duration:35s; }
+.cloud12 { width:140px; height:50px; top:88%; left:85%; animation-duration:28s; }
+.cloud13 { width:180px; height:60px; top:15%; left:85%; animation-duration:33s; }
+.cloud14 { width:220px; height:70px; top:45%; left:90%; animation-duration:45s; }
+.cloud15 { width:150px; height:50px; top:70%; left:55%; animation-duration:31s; }
+
+@keyframes moveClouds {
+    from { transform: translateX(0); }
+    to   { transform: translateX(120vw); }
+}
+
+/* =========================
+   🌧 RAIN OVERLAY
+   ========================= */
+.rainy::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,0.2) 2px, transparent 2px);
+    background-size: 2px 12px;
+    animation: rainFall 0.4s linear infinite;
+}
+
+@keyframes rainFall {
+    from { background-position: 0 0; }
+    to   { background-position: 0 100%; }
+}
+
+/* =========================
+   🌫 FOG / SMOKE (MUMBAI 😄)
+   ========================= */
+.cloudy::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), rgba(200,200,200,0.25));
+    animation: fogMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes fogMove {
+    from { transform: translateX(-5%); }
+    to   { transform: translateX(5%); }
+}
+
+/* =========================
+   🌙 NIGHT STARS
+   ========================= */
+.night::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background:
+        radial-gradient(1px 1px at 20% 30%, white, transparent),
+        radial-gradient(1px 1px at 40% 80%, white, transparent),
+        radial-gradient(1px 1px at 60% 20%, white, transparent),
+        radial-gradient(1px 1px at 80% 70%, white, transparent),
+        radial-gradient(1px 1px at 30% 50%, white, transparent),
+        radial-gradient(1px 1px at 70% 40%, white, transparent);
+}
